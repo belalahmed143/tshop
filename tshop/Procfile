@@ -1,1 +1,1 @@
-gunicorn tshop.wsgi --log-file -
+web: gunicorn tshop.wsgi --log-file -

@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+  <!--Main layout-->
+  <main class="mt-5 pt-4">
+    <div class="container wow fadeIn">
+
+      <!-- Heading -->
+      <h2 class="my-5 h2 text-center">Checkout form</h2>
+
+      <!--Grid row-->
+      <div class="row">
+
+        <!--Grid column-->
+        <div class="col-md-8">
+          <div class="card">
+            
+          <form class="p-5" action="" method="POST">
+            {% csrf_token %}
+            {{form|crispy}}
+
+            <button class="btn btn-sm btn-info col-12">Continue Checkout</button>
+          </form>
+          </div>
+
+        </div>
+        <!--Grid column-->
+
+
+        <!--Grid column-->
+        <div class="col-md-4">
+        <h4 class="py-3" style="color: white; background-color: blue; text-align: center;">YOUR ORDER</h4>
+        <table class="table">
+            <thead>
+              <tr style="background-color: rgb(10, 10, 204); color: white;">
+                <th>SN</th>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {% for o in order.products.all %}
+              
+              <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{o.product.title}}</td>
+                <td>{{o.product.price}}</td>
+                <td>{{o.quantity}}</td>
+                <td>
+                  {% if o.product.discount_price %}
+                    {{ o.discount_price }} <span>( {{p.get_saving_price}} )</span>
+                  {% else %}
+                    {{o.get_subtotal}}
+                  {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+
+              {% if order.get_total %}
+                <tr>
+                  <td colspan="4"><h5>Total</h5></td>
+                  <td>TK {{ order.get_total }}</td>
+                </tr>
+              {% endif %}
+            </tbody>
+          </table>
+        </div>
+        <!--Grid column-->
+
+      </div>
+      <!--Grid row-->
+
+    </div>
+  </main>
+  <!--Main layout-->
+{% endblock %}

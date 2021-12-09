@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+   
+<div class="container-fluid">
+        <div class="row">
+        <h4>Search Result for <span class="text-success"> {{request.GET.q}} </span>  </h4> 
+            {% for p in data %}
+            <div class="col-12 col-md-4 col-lg-3">
+                <div class="card" style="width: 18rem;">
+                   <a href="{% url 'product-detail' p.slug %}"><img src="{{ p.image.url }}" class="card-img-top" alt="..."></a> 
+                    <div class="card-body">
+                         <h5>{{ p.title }}</h5>
+                        {% if p.discount_price %}
+                        <b><h6>{{ p.discount_price }}</h6></b>
+                        <span><del>{{ p.price }}</del></span>
+                        {% else %}
+                        <b>{{ p.price }}</b>
+                        {% endif %}
+                        <p>{{ p.date }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    
+    
+{% endblock %}

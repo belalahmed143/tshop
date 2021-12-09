@@ -1,0 +1,21 @@
+
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container">
+    <div class="register_page ">
+        <h4 class="bg-info py-1" style=" height: 40px;">Customer Registration</h4>
+        <form class="my-3"  method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                {{form|crispy}}
+            </div>
+            <button style="width: 100%; margin: 0 auto;" class="btn btn-info my-2">SingUp</button>
+        </form>
+        <a   href="">Create a New Account </a>
+    </div>
+</div>
+
+{% endblock %}

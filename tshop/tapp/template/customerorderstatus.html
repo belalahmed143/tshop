@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+  <!--Main layout-->
+  <main class="mt-5 pt-4">
+    <div class="container wow fadeIn">
+
+      <!--Grid row-->
+      <div class="row">
+        <!--Grid column-->
+        <div class="col-md-12">
+        <h4 class="py-3" style="color: white; background-color: blue; text-align: center;">YOUR ORDER</h4>
+        <table class="table">
+            <thead>
+              <tr style="background-color: rgb(10, 10, 204); color: white;">
+                <th>SN</th>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Order Status</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {% for o in order %}
+
+              {% if o.ordered == True %}             
+              <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{o.product.title}}</td>
+                <td>{{o.product.price}}</td>
+                <td>{{o.quantity}}</td>
+                <td>
+                  {% if o.discount_price %}
+                    {{ o.discount_price }} <span>( {{p.get_saving_price}} )</span>
+                  {% else %}
+                    {{o.get_subtotal}}
+                  {% endif %}
+                </td>
+                <td>{{o.order_status}}</td>
+              </tr>
+              {% endif %}
+              {% empty %}
+              <tr>
+                  <td><h4 class="text-danger">Your Order Is Empty</h4></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <!--Grid column-->
+
+      </div>
+      <!--Grid row-->
+
+    </div>
+  </main>
+  <!--Main layout-->
+{% endblock %}

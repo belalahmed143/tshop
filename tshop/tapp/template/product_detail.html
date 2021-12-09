@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<main class="mt-5 pt-4">
+    <div class="container dark-grey-text mt-5">
+
+      <!--Grid row-->
+      <div class="row wow fadeIn">
+
+        <!--Grid column-->
+        <div class="col-md-6 mb-4">
+
+          <img src="{{details.image.url}}" class="img-fluid" alt="">
+
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-md-6 mb-4">
+
+          <!--Content-->
+          <div class="p-4">
+
+            <div class="mb-3">
+              <h5>{{details.title}}</h5>
+              <a href="">
+                <span class="badge badge-pill {{details.label}}-color">NEW</span>
+              </a>
+            </div>
+
+            {% if details.discount_price %}
+            <p class="lead">
+              <span class="mr-1">
+                <del>${{details.price}}</del>
+              </span>
+              <span>${{details.discount_price}}</span>
+            </p>
+            {% else %}
+            <span>${{details.price}}</span>
+            {% endif %}
+
+            <p class="lead font-weight-bold">Description</p>
+
+            <p>{{details.discription}}</p>
+
+            <a href="{{ details.get_add_to_cart_url }}" class="btn btn-primary btn-md my-0 p">Add to cart
+              <i class="fas fa-shopping-cart ml-1"></i>
+            </a>
+            <a href="{{ details.get_remove_from_cart }}" class="btn btn-danger btn-md my-0 p">Remove from cart
+              <i class="fas fa-shopping-cart ml-1"></i>
+            </a>
+          </div>
+          <!--Content-->
+
+        </div>
+        <!--Grid column-->
+
+      </div>
+      <!--Grid row-->
+
+      <hr>
+
+      <!--Grid row-->
+      <div class="row d-flex justify-content-center wow fadeIn">
+          <h4 class="my-4 h4 text-center">Related Product information</h4>
+        <!--Grid column-->
+        {% for p in related_product %}
+
+        <div class="col-md-3">
+
+          <!--Content-->
+          <div class="p-4">
+            <a href="{% url 'product-detail' p.slug %}"><img src="{{ p.image.url }}" class="card-img-top" alt="..."></a> 
+            <div class="mb-3">
+
+               <h3><span class=" purple mr-1">{{p.title}}</span></h3> 
+                <span class="badge badge-pill text-danger">NEW</span>
+                <h5></h5>
+            </div>
+
+            {% if p.discount_price %}
+            <p class="lead">
+              <span class="mr-1">
+                <del>${{p.price}}</del>
+              </span>
+              <span>${{p.discount_price}}</span>
+            </p>
+            {% else %}
+            <span>${{p.price}}</span>
+            {% endif %}
+          </div>
+          <!--Content-->
+
+        </div>
+
+        {% endfor %}
+        <!--Grid column-->
+
+      </div>
+      <!--Grid row-->
+
+    </div>
+  </main>
+{% endblock %}

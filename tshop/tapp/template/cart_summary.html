@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container py-4">
+    <div class="row">
+        <div class="col-12">
+        <h4 class="py-3" style="color: white; background-color: blue; text-align: center;">Cart Summary</h4>
+        <table class="table">
+            <thead>
+                <tr style="background-color: rgb(10, 10, 204); color: white;">
+                    <th>SN</th>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Subtotal</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in order.products.all %}
+                    <tr>
+                        <td scope='row'>{{ forloop.counter }}</td>
+                        <td>{{ p.product.title}}</td>
+                        <td>{{ p.product.price}}</td>
+                        <td> <a href="{% url 'cart-product-increment' p.product.slug %}"><span class="btn btn-sm btn-success">+</span></a>
+                             {{ p.quantity}}
+                             <a href="{% url 'cart-product-decrement' p.product.slug %}"><span class="btn btn-sm btn-danger">-</span></a>    
+                        </td>
+                        <td>
+                            {% if p.product.discount_price %}
+                                {{ p.get_discount_price}} <span>( {{p.get_saving_price}} )</span>
+                            {% else %}
+                                TK {{ p.get_subtotal }}
+                            {% endif %}
+                        </td>
+                        <td><a class="btn btn-danger" href="{% url 'cart-delete' p.product.slug %}">DELETE</a></td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td><h4 class="text-danger">Your Cart Is Empty</h4></td>
+                    </tr>
+                {% endfor %}
+
+                {% if order.get_total %}
+                    <tr>
+                        <td colspan="4"><h4>Total</h4></td>
+                        <td><h4> TK {{ order.get_total }} </h4></td>
+                    </tr>
+                {% endif %}
+
+                <tr>
+                    <td colspan="5"><a class="btn btn-sm btn-secondary" href="{% url 'home' %}">Continue Shopping</a></td>
+                    <td><a class="btn btn-sm btn-warning" href="{% url 'checkout' %}">Checkout</a></td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

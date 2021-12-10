@@ -15,35 +15,24 @@ stripe.api_key = "sk_test_51HEtKGL8BxQy57KfDDoOgx9HkwDZXH16fTSh5q0pty24ndg9o3RBd
 
 def index(request):
     carousels = Carousel.objects.all().order_by('-id')
-
-    categorise = Category.objects.all().order_by('id')[:4]
-    categorise_step_2 = Category.objects.all().order_by('id')[5:9]
-    
-    product = Product.objects.all()
-    today_deals_product = Product.objects.all()
-    Top_Beauty_and_Personal_Care_Product = Product.objects.all()
-
-    today_deals_all_link = Category.objects.all().order_by('id')[4:5]
-    Top_Beauty_and_Personal_Care_Product_all_link = Category.objects.all().order_by('id')[9:10]
-
+    product = Product.objects.all().order_by('-id')
+    category =Category.objects.all().order_by('-id')
 
     context ={
         'carousels':carousels,
-
-        'categorise': categorise,
-        'categorise_step_2':categorise_step_2,
-
         'product':product,
-        'Top_Beauty_and_Personal_Care_Product':Top_Beauty_and_Personal_Care_Product,
-        'today_deals_product':today_deals_product,
-
-        'today_deals_all_link':today_deals_all_link,
-        'Top_Beauty_and_Personal_Care_Product_all_link':Top_Beauty_and_Personal_Care_Product_all_link,
-
+        'category':category,
 
     }
     return render(request, 'index.html', context)
 
+def product_category_list(request):
+    category_list = Category.objects.all().order_by('-id')
+
+    context={
+       'category_list':category_list
+    }
+    return render(request, 'category_list.html',context)
 
 def product_category(request, name):
     cate = get_object_or_404(Category, category_name=name)
@@ -139,6 +128,8 @@ class CartSummaryView(View):
         except ObjectDoesNotExist:
             messages.error(self.request, " Your cart is empty")
             return redirect('/')
+
+
 @login_required
 def cart_product_increment(request, slug):
     product = get_object_or_404(Product, slug=slug)
@@ -252,7 +243,7 @@ class CheckoutView(View):
                 )
                 checkout.save()
                 order.save()
-                # TODO: and rediirect to the selected payment option
+                # TODO: and rediirect to the selected payment option 
                 if payment_option == 'S':
                     return redirect('payment', payment_option='stripe')
                 elif payment_option == 'B':

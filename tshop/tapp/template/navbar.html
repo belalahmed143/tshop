@@ -3,16 +3,18 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow sticky-top ">
             <div class="container-fluid mx-5">
-              <a class="navbar-brand" href="{% url 'home' %}"><h2 class="mt-1">T-SHOP BANGLA</h2></a>
+              <a class="navbar-brand" href="{% url 'home' %}"><h2 class="mt-1">BANGLA-SHOP</h2></a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
               <div class="collapse navbar-collapse" id="navbarScroll">
                 <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+                    <a class="nav-link active" aria-current="page" href="{% url 'home' %}">HOME</a>
                   </li>
-
+                  <li class="nav-item">
+                      <a class="nav-link active" aria-current="page" href="{% url 'category-list' %}">PRODUCT CATEGORY</a>
+                    </li>
                 </ul>
 
                 <form class="d-flex" action="/search">
@@ -24,7 +26,7 @@
                   {% if user.is_authenticated %}
 
                     <a href="{% url 'cart-summary' %}" class="nav-link active">
-                        <b>Cart</b><span class="badge rounded-pill bg-primary mx-1">{{ request.user|cart_product_count}}</span>
+                        <b>CART</b><span class="badge rounded-pill bg-primary mx-1">{{ request.user|cart_product_count}}</span>
                     </a>
 
                     <li class="nav-item">
@@ -38,7 +40,7 @@
                     <a class="nav-link active" aria-current="page" href="{% url 'customer-registration' %}">REGISTRATION</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="{% url 'login' %}">Login</a>
+                      <a class="nav-link active" aria-current="page" href="{% url 'login' %}">LOGIN</a>
                     </li>
                   {% endif %}
                 </ul>

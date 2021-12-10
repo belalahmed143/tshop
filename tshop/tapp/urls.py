@@ -3,6 +3,7 @@ from .views import *
 
 urlpatterns = [
     path('', index, name='home' ),
+    path('product_category_list/',product_category_list, name='category-list'),
     path('product_category/<name>/', product_category, name='product-category'),
 
     # path('product_details/<slug>/',ProductDetailsView.as_view(), name='product-detail'),

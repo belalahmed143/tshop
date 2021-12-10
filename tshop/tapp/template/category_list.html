@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+   
+<div class="container-fluid">
+    <div class="row">
+        {% for p in category_list %}
+        <div class="col-6 col-md-4 col-lg-3 my-2">
+            <div class="card border-0" >
+                <h4 class="m-3">{{ p.category_name }}</h4>
+                <img src="{{ p.category_img.url }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <a class="btn btn-sm btn-dark" href="{% url 'product-category' name=p.category_name %}">View All {{ p.category_name }} Product</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

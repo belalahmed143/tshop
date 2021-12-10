@@ -67,29 +67,30 @@
         <!--Grid column-->
         {% for p in related_product %}
 
-        <div class="col-md-3">
+        <div class="col-6 col-md-4">
 
           <!--Content-->
-          <div class="p-4">
+          <div class="card border-0">
             <a href="{% url 'product-detail' p.slug %}"><img src="{{ p.image.url }}" class="card-img-top" alt="..."></a> 
-            <div class="mb-3">
+            <div class="mb-3 p-2">
 
                <h3><span class=" purple mr-1">{{p.title}}</span></h3> 
+               <a href="{% url 'product-category' name=p.product_category.category_name %}"><h6>{{p.product_category}}</h6></a> 
                 <span class="badge badge-pill text-danger">NEW</span>
                 <h5></h5>
+                {% if p.discount_price %}
+                <p class="lead">
+                  <span class="mr-1">
+                    <del>${{p.price}}</del>
+                  </span>
+                  <span>${{p.discount_price}}</span>
+                </p>
+                {% else %}
+                <span>${{p.price}}</span>
+                {% endif %}
+              </div>
             </div>
 
-            {% if p.discount_price %}
-            <p class="lead">
-              <span class="mr-1">
-                <del>${{p.price}}</del>
-              </span>
-              <span>${{p.discount_price}}</span>
-            </p>
-            {% else %}
-            <span>${{p.price}}</span>
-            {% endif %}
-          </div>
           <!--Content-->
 
         </div>

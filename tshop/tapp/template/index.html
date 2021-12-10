@@ -81,7 +81,7 @@
              <a  href="{% url 'product-category' name=cate.category_name %}">View All {{ cate.category_name }} Product</a>
                 {% for p in cate.product_set.all %}
                 <div class="col-6 col-md-4 col-lg-3">
-                    <div class="card my-3 border-0" style="width: 18rem;">
+                    <div class="card my-3 border-0">
                         <a href="{% url 'product-detail' p.slug %}"><img src="{{ p.image.url }}" class="card-img-top" alt="..."></a> 
                         <div class="card-body">
                             <h5>{{ p.title }}</h5>
